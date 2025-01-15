@@ -1,4 +1,3 @@
 #!/usr/bin/python3
 number = 3.14159
-rounder_float = round(number, 2)
-print(f"Float: {rounder_float}")
+print(f"Float: {number:.2f}")
