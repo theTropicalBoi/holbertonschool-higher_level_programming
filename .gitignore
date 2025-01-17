@@ -1,1 +1,9 @@
 .venv
+.idea/inspectionProfiles/profiles_settings.xml
+.gitignore
+.idea/.gitignore
+.idea/holbertonschool-higher_level_programming.iml
+.idea/material_theme_project_new.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
