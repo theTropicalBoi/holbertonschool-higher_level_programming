@@ -1,0 +1,70 @@
+# Test file for add_integer function
+
+>>> add_integer = __import__('0-add_integer').add_integer
+
+# Test basic addition
+>>> add_integer(1, 2)
+3
+
+# Test with default b value
+>>> add_integer(2)
+100
+
+# Test with float values
+>>> add_integer(100.3, -2)
+98
+
+# Test with negative integers
+>>> add_integer(-10, -5)
+-15
+
+# Test with float values (should be cast to int)
+>>> add_integer(2.5, 3.7)
+5
+
+# Test with non-integer second argument
+>>> try:
+...     add_integer(4, "School")
+... except Exception as e:
+...     print(e)
+b must be an integer
+
+# Test with None as first argument
+>>> try:
+...     add_integer(None)
+... except Exception as e:
+...     print(e)
+a must be an integer
+
+# Test with non-integer first argument
+>>> try:
+...     add_integer("Hello", 3)
+... except Exception as e:
+...     print(e)
+a must be an integer
+
+# Test for float overflow
+>>> try:
+...     add_integer(float('inf'), 0)
+... except OverflowError as e:
+...     print(e)
+cannot convert float infinity to integer
+
+>>> try:
+...     add_integer(0, float('inf'))
+... except OverflowError as e:
+...     print(e)
+cannot convert float infinity to integer
+
+>>> try:
+...     add_integer(float('inf'), float('inf'))
+... except OverflowError as e:
+...     print(e)
+cannot convert float infinity to integer
+
+# Test with NaN
+>>> try:
+...     add_integer(float('nan'))
+... except ValueError as e:
+...     print(e)
+cannot convert float NaN to integer

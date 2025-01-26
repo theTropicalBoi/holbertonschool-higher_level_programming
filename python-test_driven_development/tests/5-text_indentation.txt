@@ -1,0 +1,50 @@
+# Test file for text_indentation function
+
+>>> text_indentation = __import__('5-text_indentation').text_indentation
+
+# Test 1: Normal case with multiple sentences
+>>> text_indentation("""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quonam modo? Utrum igitur tibi litteram videor an totas paginas commovere? Non autem hoc: igitur ne illud quidem. Fortasse id optimum, sed ubi illud: Plus semper voluptatis?""")
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+<BLANKLINE>
+Quonam modo?
+<BLANKLINE>
+Utrum igitur tibi litteram videor an totas paginas commovere?
+<BLANKLINE>
+Non autem hoc:
+<BLANKLINE>
+igitur ne illud quidem.
+<BLANKLINE>
+Fortasse id optimum, sed ubi illud:
+<BLANKLINE>
+Plus semper voluptatis?
+<BLANKLINE>
+
+# Test 2: Text without special characters
+>>> text_indentation("Hello world")
+Hello world
+
+# Test 3: Only special characters
+>>> text_indentation(".:?")
+.
+<BLANKLINE>
+:
+<BLANKLINE>
+?
+<BLANKLINE>
+
+# Test 4: Non-string input
+>>> try:
+...     text_indentation(12345)
+... except TypeError as e:
+...     print(str(e))
+text must be a string
+
+# Test 5: Empty string
+>>> text_indentation("")
+
+# Test 6: Missing argument
+>>> try:
+...     text_indentation()
+... except TypeError as e:
+...     print(str(e))
+text_indentation() missing 1 required positional argument: 'text'
