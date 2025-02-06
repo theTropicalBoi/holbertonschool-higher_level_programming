@@ -1,0 +1,129 @@
+The ``7-base_geometry`` module
+======================
+
+This module contains the BaseGeometry class for geometric calculations.
+
+Using ``BaseGeometry``
+-------------------
+
+First import ``BaseGeometry`` from the ``7-base_geometry`` module:
+
+    >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+Now test it:
+
+    >>> bg = BaseGeometry()
+
+Test documentation:
+    >>> len(__import__('7-base_geometry').__doc__) > 1
+    True
+    >>> len(__import__('7-base_geometry').BaseGeometry.__doc__) > 1
+    True
+    >>> len(__import__('7-base_geometry').BaseGeometry.area.__doc__) > 1
+    True
+    >>> len(__import__('7-base_geometry').BaseGeometry.integer_validator.__doc__) > 1
+    True
+
+Test area method:
+    >>> try:
+    ...     print(bg.area())
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [Exception] area() is not implemented
+
+Test integer validator with valid cases:
+    >>> bg.integer_validator("my_int", 12)
+    >>> bg.integer_validator("width", 89)
+    >>> bg.integer_validator("positive", 1)
+
+Test integer validator with type errors:
+    >>> try:
+    ...     bg.integer_validator("name", "John")
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] name must be an integer
+
+    >>> try:
+    ...     bg.integer_validator("age", 0)
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [ValueError] age must be greater than 0
+
+    >>> try:
+    ...     bg.integer_validator("distance", -4)
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [ValueError] distance must be greater than 0
+
+    >>> try:
+    ...     bg.integer_validator("average", 7.8)
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] average must be an integer
+
+    >>> try:
+    ...     bg.integer_validator("name", None)
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] name must be an integer
+
+Test integer validator with different data types:
+    >>> try:
+    ...     bg.integer_validator("name", [3])
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] name must be an integer
+
+    >>> try:
+    ...     bg.integer_validator("name", (3,))
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] name must be an integer
+
+    >>> try:
+    ...     bg.integer_validator("name", {3, 4})
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] name must be an integer
+
+    >>> try:
+    ...     bg.integer_validator("name", True)
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] name must be an integer
+
+Test integer validator with missing arguments:
+    >>> try:
+    ...     bg.integer_validator()
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+    >>> try:
+    ...     bg.integer_validator("age")
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] integer_validator() missing 1 required positional argument: 'value'
+
+Test integer validator with wrong number of arguments:
+    >>> bg.integer_validator("age", 1, 2)
+    Traceback (most recent call last):
+    TypeError: integer_validator() takes 3 positional arguments but 4 were given
+
+Test area method with arguments:
+    >>> bg.area(5)
+    Traceback (most recent call last):
+    TypeError: area() takes 1 positional argument but 2 were given
+
+Test class instantiation:
+    >>> bg = BaseGeometry()
+    >>> isinstance(bg, BaseGeometry)
+    True
+    >>> bg = BaseGeometry(None)
+    Traceback (most recent call last):
+    TypeError: BaseGeometry() takes no arguments
+
+Test name validation:
+    >>> bg.integer_validator(None, 1)
+    >>> bg.integer_validator(123, 1)
+    >>> bg.integer_validator("", 1)
