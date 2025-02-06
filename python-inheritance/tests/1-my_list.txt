@@ -1,0 +1,52 @@
+# Test cases for MyList class
+
+# Import the class MyList
+>>> MyList = __import__('1-my_list').MyList
+
+# Test with a simple MyList and adding elements
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.append(5)
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+
+# Test print_sorted method on MyList
+>>> my_list.print_sorted()
+[1, 2, 3, 4, 5]
+
+# Test that the original list is unchanged after print_sorted
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+
+# Test print_sorted with an already sorted list
+>>> my_list_sorted = MyList([1, 2, 3, 4, 5])
+>>> my_list_sorted.print_sorted()
+[1, 2, 3, 4, 5]
+
+# Test print_sorted with a reversed list
+>>> my_list_reversed = MyList([5, 4, 3, 2, 1])
+>>> my_list_reversed.print_sorted()
+[1, 2, 3, 4, 5]
+
+# Test adding negative numbers to the list
+>>> my_list_neg = MyList([1, -1, 2, -2, 3])
+>>> my_list_neg.print_sorted()
+[-2, -1, 1, 2, 3]
+
+# Test with a list containing a single element
+>>> my_list_single = MyList([100])
+>>> my_list_single.print_sorted()
+[100]
+
+# Test with an empty list
+>>> my_list_empty = MyList()
+>>> my_list_empty.print_sorted()
+[]
+
+# Test with a large list of numbers
+>>> my_list_large = MyList([10, 5, 8, 2, 1, 7, 9, 3, 4, 6])
+>>> my_list_large.print_sorted()
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
