@@ -1,15 +1,18 @@
 #!/usr/bin/python3
-import random
+"""
+Class MyList that inherits from list
+"""
 
 
-number = random.randint(-10000, 10000)
-last = abs(number) % 10
-if number < 0:
-    last = -last
+class MyList(list):
+    """
+    Class MyList that inherits from list
 
-if last == 0:
-    print(f"Last digit of {number} is {last} and is 0")
-elif last > 5:
-    print(f"Last digit of {number} is {last} and is greater than 5")
-else:
-    print(f"Last digit of {number} is {last} and is less than 6 and not 0")
+    Arguments:
+        _list: builtin list
+    """
+    def print_sorted(self):
+        """
+        Module print_sorted to print the list in sorted way
+        """
+        print(sorted(self))
