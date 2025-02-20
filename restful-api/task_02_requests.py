@@ -37,6 +37,6 @@ def fetch_and_save_posts():
 
         with open('posts.csv', 'w', newline='', encoding='utf-8') as file:
             writer = csv.DictWriter(file, fieldnames=['id', 'title', 'body'])
+
             writer.writeheader()
-            for post in structured:
-                writer.writerow(post)
+            writer.writerows(structured)
