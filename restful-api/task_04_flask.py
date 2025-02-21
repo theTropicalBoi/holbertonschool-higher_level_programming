@@ -16,7 +16,7 @@ def home():
     Returns:
         str: Welcome Message.
     """
-    return "<p>Hello World !</p>"
+    return "<p>Welcome to the Flask API!</p>"
 
 
 @app.route("/data")
@@ -55,12 +55,21 @@ def get_user(username):
 
 app.route("/add_user", methods=['POST'])
 def add_user():
+    """
+    Endpoint to add a new user.
+
+    Expects a JSON payload with user information, including a 'username' field.
+
+    Returns:
+        flask.Response: A JSON response confirming the addition of the user,
+        or an error message if the username is missing.
+    """
     data = request.get_json()
     username = data.get("username")
     if not username:
         return jsonify({"error": "Username is required"}), 400
     users[username] = data
-    return jsonify({"message": "User added", "user": data}), 201
+    return jsonify({"message": "User added", "user": data}), 203
 
 
 if __name__ == "__main__":
