@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """
-Script that lists all states from the database hbtn_0e_0usa
+Script that list all cities from db hbtn_0e_4_usa
 """
-import MySQLdb
 import sys
+import MySQLdb
 
 
 if __name__ == "__main__":
@@ -31,7 +31,12 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Execute SQL Query
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    cursor.execute("""
+                   SELECT cities.id, cities.name, states.name
+                   FROM cities
+                   JOIN states ON cities.state_id = states.id
+                   ORDER BY cities.id ASC
+                """)
 
     # Fetch all rows
     rows = cursor.fetchall()

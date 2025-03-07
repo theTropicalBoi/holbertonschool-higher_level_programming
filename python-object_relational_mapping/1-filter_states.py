@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 """
-Script that lists all states from the database hbtn_0e_0usa
+Script that lists all states with name
+starting with N from hbtn_0e_0_usa
 """
-import MySQLdb
 import sys
+import MySQLdb
 
 
 if __name__ == "__main__":
@@ -30,15 +31,16 @@ if __name__ == "__main__":
     # Creating Cursor
     cursor = db.cursor()
 
-    # Execute SQL Query
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    # Execute SQL Query to filter states beginning with N
+    cursor.execute("SELECT * FROM states ORDER BY states.id ASC")
 
     # Fetch all rows
     rows = cursor.fetchall()
 
     # Print result
     for row in rows:
-        print(row)
+        if row[1].startswith("N"):
+            print(row)
 
     # Close cursor and database
     cursor.close()

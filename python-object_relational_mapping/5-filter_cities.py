@@ -1,15 +1,17 @@
 #!/usr/bin/python3
 """
-Script that lists all states from the database hbtn_0e_0usa
+Script that takes in the name of a state as an argument
+and lists all cities of that state, using db hbtn_0e_4_usa
 """
-import MySQLdb
 import sys
+import MySQLdb
 
 
 if __name__ == "__main__":
     # Verification of all required arguments
-    if len(sys.argv) != 4:
-        print("Usage: {} <mysql username> <mysql password> <database name>"
+    if len(sys.argv) != 5:
+        print("Usage: {} <mysql username> <mysql password>\
+              <database name> <state name>"
               .format(sys.argv[0]))
         sys.exit(1)
 
@@ -17,6 +19,7 @@ if __name__ == "__main__":
     username = sys.argv[1]
     password = sys.argv[2]
     database = sys.argv[3]
+    state_name = sys.argv[4]
 
     # Connection to MySQL Server
     db = MySQLdb.connect(
@@ -31,14 +34,22 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Execute SQL Query
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    query = ("""
+    SELECT cities.name
+    FROM cities
+    JOIN states ON cities.state_id = states.id
+    WHERE states.name = %s
+    ORDER BY cities.id ASC
+    """)
+    cursor.execute(query, (state_name,))
 
     # Fetch all rows
     rows = cursor.fetchall()
 
     # Print result
-    for row in rows:
-        print(row)
+    if rows:
+        city_name = [row[0] for row in rows]
+        print(", ".join(city_name))
 
     # Close cursor and database
     cursor.close()
