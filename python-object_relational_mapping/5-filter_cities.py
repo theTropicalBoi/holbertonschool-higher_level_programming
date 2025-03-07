@@ -16,8 +16,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # Command line args
-    username = sys.argv[1]
-    password = sys.argv[2]
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
     database = sys.argv[3]
     state_name = sys.argv[4]
 
@@ -25,8 +25,8 @@ if __name__ == "__main__":
     db = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=username,
-        passwd=password,
+        user=mysql_username,
+        passwd=mysql_password,
         db=database
     )
 
@@ -34,22 +34,20 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Execute SQL Query
-    query = ("""
-    SELECT cities.name
-    FROM cities
-    JOIN states ON cities.state_id = states.id
-    WHERE states.name = %s
-    ORDER BY cities.id ASC
-    """)
+    query = """
+        SELECT cities.name
+        FROM cities
+        JOIN states ON cities.state_id = states.id
+        WHERE states.name = %s
+        ORDER BY cities.id ASC
+        """
     cursor.execute(query, (state_name,))
 
     # Fetch all rows
     rows = cursor.fetchall()
 
     # Print result
-    if rows:
-        city_name = [row[0] for row in rows]
-        print(", ".join(city_name))
+    print(", ".join([row[0] for row in rows]))
 
     # Close cursor and database
     cursor.close()
