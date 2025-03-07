@@ -1,51 +1,42 @@
 #!/usr/bin/python3
 """
-Prints all City objects from db hbtn_0e_14_usa
+Script that lists all City objects from the database hbtn_0e_14_usa,
+sorted by cities.id and showing their associated state names.
 """
-import sys
+
+import sys  # Import sys to handle command-line arguments
+from model_city import Base, City  # Import the City and Base classes
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model_state import Base, State
-from model_city import City
-
 
 if __name__ == "__main__":
-    # Verification of all required arguments
+    # Ensure the script is provided with the correct arguments
     if len(sys.argv) != 4:
         print("Usage: {} <mysql username> <mysql password> <database name>"
               .format(sys.argv[0]))
         sys.exit(1)
 
-    # Command line args
+    # Get command-line arguments
     username = sys.argv[1]
     password = sys.argv[2]
     database = sys.argv[3]
 
-    # Connection to SQLAlchemy engine
+    # Create an engine to connect to the MySQL database
     engine = create_engine(
-        'mysql+mysqldb://{}:{}@localhost:3306/{}'
-        .format(username, password, database),
-        pool_pre_ping=True
-    )
+        'mysql+mysqldb://{}:{}@localhost:3306/{}'.format(
+            username, password, database),
+        pool_pre_ping=True)  # Use pool_pre_ping to avoid connection issues
 
-    # Creating Session
+    # Create a session factory bound to the engine
     Session = sessionmaker(bind=engine)
-    session = Session()
+    session = Session()  # Create session instance to interact with database
 
-    # Retrieves all cities with states, order by cities.id
-    cities = (
-        session.query(City, State)
-        .join(State, City.state_id == State.id)
-        .order_by(City.id.asc())
-        .all()
-    )
+    # Query the City table, join with the State table, order by city.id
+    cities = session.query(City).join(City.state).order_by(City.id).all()
 
-    # Print result
-    for city, state in cities:
-        print("{}: ({}) {}".format(
-            state.name,
-            city.id,
-            city.name))
+    # Loop through the retrieved cities and print them along with their state
+    for city in cities:
+        print("{}: ({}) {}".format(city.state.name, city.id, city.name))
 
-    # Close session
+    # Close the session to release resources
     session.close()
