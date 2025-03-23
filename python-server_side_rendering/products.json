@@ -1,0 +1,5 @@
+[
+        {"id": 1, "name": "Mosin", "category": "Bolt Action", "price": 499.99},
+        {"id": 2, "name": "SVT-40", "category": "Automatic Rifle", "price": 749.99},
+        {"id": 3, "name": "Chauchat", "category": "Machinegun", "price": 1299.99}
+]
